@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxwdfv0JNLA5L9h2jGRxE1MJrFxWhFvrA",
+            authDomain: "new-tify.firebaseapp.com",
+            projectId: "new-tify",
+            storageBucket: "new-tify.appspot.com",
+            messagingSenderId: "210836084003",
+            appId: "1:210836084003:web:b62bebea6fb537231f2896",
+            measurementId: "G-9GCVE8BT0Y"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        const messaging = firebase.messaging();
+        
+        getStartToken();
+        messaging.onMessage(function(payload){
+            console.log("on Message",payload);
+        });
+
+        function getStartToken(){
+            messaging.getToken().then((currentToken) => {
+                console.log("Token is generated", currentToken)
+                if (currentToken) {
+                    sendTokenToServer(currentToken);
+                } 
+                else {
+                    // Show permission request.
+                    RequestPermission();
+                    // setTokenSentToServer(false);
+                }
+            }).catch((err) => {
+                // setTokenSentToServer(false);
+            });
+        }
+
+        function RequestPermission(){
+            messaging.requestPermission().then(function(permission){
+                if (permission === 'granted') {
+                    console.log("have Permission");
+                    //calls method again and to sent token to server
+                    getStartToken();
+                }
+                else{console.log("Permission Denied");}
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Check registration key</h1>
+</body>
+</html>
