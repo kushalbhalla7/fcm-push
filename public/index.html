@@ -24,12 +24,31 @@
 
         const messaging = firebase.messaging();
         
-        getStartToken();
+        getToken();
         messaging.onMessage(function(payload){
-            console.log("on Message",payload);
+            console.log("Message is being recieved", payload);
+            const notificationOption={
+                body:payload.notification.body,
+                icon:payload.notification.icon
+            };
+
+            // console.log(Notification.permission);
+
+            // if(Notification.permission==="granted"){
+            //     var notification=new Notification("Hi there its called",notificationOption);
+
+            //     console.log(notification);
+                
+            //     notification.onclick=function (ev) {
+            //         ev.preventDefault();
+            //         // window.open(payload.notification.click_action,'_blank');
+            //         notification.close();
+            //         window.parent.focus();
+            //     }
+            // }
         });
 
-        function getStartToken(){
+        function getToken(){
             messaging.getToken().then((currentToken) => {
                 console.log("Token is generated", currentToken)
                 if (currentToken) {
@@ -37,7 +56,7 @@
                 } 
                 else {
                     // Show permission request.
-                    RequestPermission();
+                    reqPermission();
                     // setTokenSentToServer(false);
                 }
             }).catch((err) => {
@@ -45,12 +64,12 @@
             });
         }
 
-        function RequestPermission(){
+        function reqPermission(){
             messaging.requestPermission().then(function(permission){
                 if (permission === 'granted') {
                     console.log("have Permission");
                     //calls method again and to sent token to server
-                    getStartToken();
+                    getToken();
                 }
                 else{console.log("Permission Denied");}
             })

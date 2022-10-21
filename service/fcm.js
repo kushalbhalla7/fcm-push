@@ -1,7 +1,7 @@
 const firebase = require("firebase-admin");
 const serviceAccount = require('../new-tify-firebase-adminsdk-tvoot-3ead32aba7.json');
 
-const firebaseToken = 'fU59XrxVpHKqAbCu2sLGL7:APA91bHUbmtcI6Dg0g8Jz7K9-_a_3F5RmA4zrqoldZQNHliEcoFn1Bcvcqz29sEewHfQVMTnLpqBMDYonLayitTXt0KdoJW-eU66rbJryV79YAlB7iYGfqE5PsRrtIFs3VhuCfIwTeoD';
+const firebaseToken = 'fU59XrxVpHKqAbCu2sLGL7:APA91bFiYhop3MRU5YjxcDupMV2lFbHJlncR-nVMhmxdPF5RVjIOtPfPXG5XOY-deA1yVsAqI4aMs1sRbBa7LQvo3min59cqCkTYDUeemKRj2Ih4gqJy36mzja9jhEAcJ0vgt9Tn-QwI';
 
 firebase.initializeApp({
     credential: firebase.credential.cert(serviceAccount),
@@ -10,12 +10,9 @@ firebase.initializeApp({
 
 const payload = {
     notification: {
-      title: 'Notification Title',
+      title: 'Congratulation Raman',
       body: 'Your cart is ready to be purchased',
-    },
-    data: { //you can send only notification or only data(or include both)
-      title: 'ok cdfsdsdfsd',
-      body: '{"name" : "okg ooggle ogrlrl","product_id" : "123","final_price" : "0.00035"}'
+      icon: 'http://image.ibb.co/frYOFd/tmlogo.png',
     }
 };
 
